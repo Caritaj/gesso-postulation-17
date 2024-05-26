@@ -1,0 +1,66 @@
+<app-header></app-header>
+<div class="box-border pb-8">
+    <h1 class="text-principal text-center text-3xl font-bold mt-10">
+        IMPORTANTE
+    </h1>
+
+    <h3 class="text-principal text-justify mx-10 my-0 py-0 text-lg font-normal mt-4">
+        Los postulantes que han sido validados como locales por las respectivas autoridades y Comités
+        de Empleo de las zonas de influencia social de la Unidad Minera San Rafael, podrán tener acceso
+        gratuito a esta plataforma digital para postular al puesto de trabajo de su interés. En caso de
+        no estar validado, puede solicitar su acceso a través del botón "Solicitar acceso" e
+        informaremos a las autoridades y Comités de Empleo para su revisión correspondiente.
+    </h3>
+    <div class="text-center m-3">
+        <button class="w-1/6 btn-custom-base" mat-raised-button color="primary" (click)="redirectToInit()" scrollToUp>
+            <mat-icon>arrow_back</mat-icon> Atrás
+        </button>
+    </div>
+    <div
+        class="mx-auto w-10/12 lg:w-9/12 h-auto lg:h-[32rem] flex flex-col lg:flex-row relative bg-white rounded-2xl overflow-hidden shadow-custom">
+        <div class="w-full lg:w-1/2 overflow-hidden">
+            <form class="h-full flex flex-col justify-center items-center px-4 lg:px-20 py-4" [formGroup]="userLoginForm"
+                (ngSubmit)="login()">
+                <h2 class="text-3xl mb-5 text-principal font-semibold">INICIAR SESIÓN</h2>
+                <span class="text-sm mb-4">Use su DNI y Fecha de nacimiento</span>
+                <div class="w-full px-2">
+                    <mat-form-field appearance="outline" floatLabel="always" class="w-full">
+                        <mat-label>Documento de Identidad</mat-label>
+                        <input type="text" #number [maxLength]="8" matInput onlyNumbers formControlName="number"
+                            placeholder="Ingresar Nro DNI" />
+                        <mat-error *ngIf="userLoginForm.get('number')?.hasError('required')">
+                            Ingresa el DNI
+                        </mat-error>
+                        <mat-hint align="end">{{number.value.length}} / 8</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full px-2 mt-4">
+                    <mat-form-field appearance="outline" floatLabel="always" class="w-full">
+                        <mat-label>Fecha de nacimiento</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" appInputMask
+                            formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="userLoginForm.get('date')?.hasError('required')">
+                            Selecciona la fecha de nacimiento
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <button class="mt-4 btn-custom-base w-full" type="submit" scrollToUp mat-raised-button
+                    color="primary">Iniciar Sesión</button>
+                <a href="#" class="text-principal mt-3 text-sm mb-5" (click)="openDialogForget($event)">¿Olvidaste como
+                    ingresar?</a>
+            </form>
+        </div>
+        <div
+            class="relative w-full lg:w-1/2 h-[28rem] lg:h-full flex items-center justify-center bg-principal overflow-hidden">
+            <div class="absolute flex items-center flex-col text-center gap-5 p-4 lg:p-10 text-white">
+                <h3 class="text-2xl">¿Aún no cuentas con acceso para postular?</h3>
+                <p class="text-sm py-5">Ingrese sus datos personales para usar todas las funciones del sitio</p>
+                <button class=" w-1/2 btn-light" mat-stroked-button (click)="openDialog()">Solicitar acceso</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-footer></app-footer>

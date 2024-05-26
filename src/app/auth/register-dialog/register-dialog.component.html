@@ -1,0 +1,110 @@
+<app-dialog-header (closeClick)="close()">Ingresar Datos de Acceso</app-dialog-header>
+<app-dialog-content>
+    <div class="py-2 px-3">
+        <p class="text-sm bg-red-200 text-justify p-3 italic rounded"><span class="font-bold">Nota:
+            </span>El registro de datosen este formulario es solo para las personas residentes en la zona de influencia
+            de la Unidad Minera de San Rafael - MINSUR.
+        </p>
+    </div>
+    <form [formGroup]="formGroup" class="py-1 px-3" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Tipo de Documento</mat-label>
+                <mat-select formControlName="docTypeId" placeholder="-- Seleccionar --">
+                    <mat-option *ngFor="let item of dataSourceDocumentType" [value]="item.id">
+                        {{item.text}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('docTypeId','required')">Requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Número de Documento</mat-label>
+                <input matInput type="text" formControlName="numdoc" onlyNumbers [maxLength]="20">
+                <mat-error *ngIf="hasError('numdoc','required')">Requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Primer Nombre</mat-label>
+                <input matInput type="text" formControlName="firstName">
+                <mat-error *ngIf="hasError('firstName','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('firstName','maxlength')">{{getMaxLengthErrorMessage('firstName')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Segundo Nombre</mat-label>
+                <input matInput type="text" formControlName="middleName">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Apellido Paterno</mat-label>
+                <input matInput type="text" formControlName="lastPatName">
+                <mat-error *ngIf="hasError('lastPatName','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('lastPatName','maxlength')">{{getMaxLengthErrorMessage('lastPatName')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Apellido Materno</mat-label>
+                <input matInput type="text" formControlName="lastMatName">
+                <mat-error *ngIf="hasError('lastMatName','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('lastMatName','maxlength')">{{getMaxLengthErrorMessage('lastMatName')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Género</mat-label>
+                <mat-select formControlName="genderId" placeholder="-- Seleccionar --">
+                    <mat-option *ngFor="let item of dataSourceGender" [value]="item.id">
+                        {{item.text}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('genderId','required')">Requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input placeholder="DD/MM/YYYY" appInputMask matInput [matDatepicker]="picker"
+                    formControlName="birthDate">
+                <mat-error *ngIf="hasError('birthDate','required')">Requerido</mat-error>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput type="text" formControlName="email">
+                <mat-error *ngIf="hasError('email','required')">Requerido</mat-error>
+                <mat-error *ngIf="hasError('email','pattern')">Correo electrónico no válido</mat-error>
+                <mat-error *ngIf="hasError('email','maxlength')">{{getMaxLengthErrorMessage('email')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Distrito/Comunidad</mat-label>
+                <input matInput type="text" formControlName="level4Name">
+                <mat-error *ngIf="hasError('level4Name','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('level4Name','maxlength')">{{getMaxLengthErrorMessage('level4Name')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Nro de celular</mat-label>
+                <input matInput type="text" formControlName="phoneNumber" onlyNumbers>
+                <mat-error *ngIf="hasError('phoneNumber','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('phoneNumber','minlength')">{{getMinLengthErrorMessage('phoneNumber')}}</mat-error>
+                <mat-error
+                    *ngIf="hasError('phoneNumber','maxlength')">{{getMaxLengthErrorMessage('phoneNumber')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Comentarios</mat-label>
+                <textarea matInput rows="5" formControlName="comment"></textarea>
+                <mat-error *ngIf="hasError('comment','maxlength')">{{getMaxLengthErrorMessage('comment')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <button type="submit" #submitButton hidden></button>
+    </form>
+</app-dialog-content>
+<app-dialog-actions>
+    <button mat-flat-button (click)="submitButton.click()" class="mr-2 btn-principal">REGISTRAR</button>
+    <button mat-stroked-button [mat-dialog-close]="null">CANCELAR</button>
+</app-dialog-actions>

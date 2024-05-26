@@ -1,0 +1,44 @@
+<header>
+    <div class="fixed inset-0 flex h-16 justify-between z-10" [class.navbar-fixed]="scrolled">
+        <div class="container-logo flex items-center">
+            <img class="h-14 block-" [class.logo-fixed]="scrolled"
+                [src]="scrolled ? '/assets/images/minsur.png' : '/assets/images/minsur-blanco.png'" alt="logo">
+        </div>
+        <div class="flex items-center">
+            <button mat-raised-button class="mr-4" href="https://gesso-sanrafael.stcloud.app/ayudapostulante/"
+                [class.scroll-button-color]="scrolled" target="_blank">Ver Manual</button>
+            <img class="h-full" src="/assets/images/colores-minsur.png" alt="colors">
+        </div>
+    </div>
+
+    <div class="m-0 h-100 w-full relative">
+        <img class="inset-0 object-cover w-full h-[405px]" src="/assets/images/banner_san_rafael1.png" alt="logo">
+    </div>
+</header>
+<div>
+    <span class="block overflow-hidden relative">
+        <span class="block py-12">
+            <img class="absolute inset-0 min-w-full" alt="" src="/assets/images/separador.png" decoding="async"
+                data-nimg="responsive">
+        </span>
+    </span>
+</div>
+<div class="pt-5 pr-7" *ngIf="existSession">
+    <div class="float-right relative bg-primary w-20 h-16 rounded">
+        <button class="mt-2" mat-button [matMenuTriggerFor]="menu">
+            <img class="rounded-full ml-4 right-2 top-2 max-w-7" src="./../../../../../assets/images/user_icon.png"
+                alt="Logo user" />
+        </button>
+        <mat-menu class="" #menu="matMenu">
+            <button class="" (click)="closeSession()" mat-menu-item scrollToUp>
+                <mat-icon>arrow_drop_down_circle</mat-icon>Cerrar sesión</button>
+        </mat-menu>
+
+    </div>
+    <div class="whitespace-nowrap align-middle w-72 float-right">
+        <div class="bg-primary rounded p-4 text-white text-lg">
+            <div>{{personInfo.name || 'NAME LASTNAME NOT FOUND'}}</div>
+            <div>DNI: {{personInfo.username}}</div>
+        </div>
+    </div>
+</div>

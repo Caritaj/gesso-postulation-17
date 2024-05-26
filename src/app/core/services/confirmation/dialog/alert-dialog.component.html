@@ -1,0 +1,52 @@
+<div class="relative flex flex-col p-4">
+    <ng-container *ngIf="data.dismissible">
+        <div class="absolute top-0 right-0 pt-4 pr-4">
+            <button mat-icon-button [matDialogClose]="undefined">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </ng-container>
+    <div class="flex flex-col sm:flex-row items-center sm:items-start p-4 pb-4 sm:pb-4">
+        <ng-container *ngIf="data.icon!.show">
+            <div class="flex items-center justify-center w-12 h-12 sm:mr-4 rounded-full" [ngClass]="{
+                            'text-blue-600 bg-blue-100': data.icon!.color === 'info',
+                            'text-green-500 bg-green-100': data.icon!.color === 'success',
+                            'text-amber-500 bg-amber-100': data.icon!.color === 'warning',
+                            'text-red-600 bg-red-100': data.icon!.color === 'error'
+                            }">
+                <mat-icon>{{data.icon!.name}} </mat-icon>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="data.title || data.message">
+            <div
+                class="flex flex-col items-center sm:items-start mt-4 sm:mt-0 sm:pr-8 space-y-1 text-center sm:text-left">
+                <ng-container *ngIf="data.title">
+                    <div class="text-xl leading-6 font-medium" [innerHTML]="data.title"></div>
+                </ng-container>
+                <ng-container *ngIf="data.message">
+                    <div [innerHTML]="data.message"></div>
+                </ng-container>
+            </div>
+        </ng-container>
+
+    </div>
+    <ng-container *ngIf="data.actions!.confirm!.show || data.actions!.cancel!.show">
+        <div class="flex items-center justify-center sm:justify-end px-6 py-2 space-x-3">
+            <!-- Cancel -->
+            <ng-container *ngIf="data.actions!.cancel!.show">
+                <button mat-stroked-button [matDialogClose]="'cancelled'">
+                    {{data.actions!.cancel!.label}}
+                </button>
+            </ng-container>
+
+            <!-- Confirm -->
+            <ng-container *ngIf="data.actions!.confirm!.show">
+                <button class="text-color" mat-flat-button
+                    [ngStyle]="{'background-color': data.actions!.confirm!.color}" [matDialogClose]="'confirmed'">
+                    {{data.actions!.confirm!.label}}
+                </button>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>
