@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import Swal from 'sweetalert2';
 import { HTTP_STATUS_MESSAGE } from '../../http/http-status-message';
 import { environment } from '../../../../environments/environment';
+import { AlertDialogService } from '../confirmation/alert.service';
 
 // Tipos de mensajes
 export type MessageType = 'info' | 'success' | 'warning' | 'error';
@@ -13,14 +13,14 @@ export class NotificationService {
 
     noConnectionErrorMessage = 'No se pudo establecer conexión con el servidor';
     unknownErrorMessage = 'Ocurrió un error desconocido.';
-    private xhrErrorMessageTitle = 'Ocurrió un error';
+    private xhrErrorMessageTitle = '¡Ocurrió un error!';
     private xhrErrorMessaTpl = `
     <div>{message}</div>
     <div class="error-code">
         <span>ERROR {status}</span>
     </div>`;
 
-    constructor() { }
+    constructor(private alertDialogService: AlertDialogService) { }
 
     handleXhrError(xhr: XMLHttpRequest | any, cmp?: any): void {
         const me = this;
@@ -83,14 +83,18 @@ export class NotificationService {
 
     private showXhrErrorMessage(message: string): void {
         const me = this;
-        Swal.fire({
+        this.alertDialogService.open({
             title: me.xhrErrorMessageTitle,
-            html: message,
-            icon: 'error',
-            confirmButtonText: 'ACEPTAR',
-            customClass: {
-                confirmButton: 'btn btn-danger',
-            }
+            message,
+            icon: { show: false },
+            actions: {
+                confirm: {
+                    label: 'ACEPTAR',
+                },
+                cancel: {
+                    show: false,
+                },
+            },
         });
     }
 

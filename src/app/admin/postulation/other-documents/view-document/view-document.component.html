@@ -1,0 +1,11 @@
+<app-dialog-header (closeClick)="closeModal()"></app-dialog-header>
+<app-dialog-content>
+    <div class="view-frame" *ngIf="urlViewer">
+        <iframe class="w-full" [src]="urlViewer" height="1500"></iframe>
+    </div>
+</app-dialog-content>
+<app-dialog-actions>
+    <button mat-raised-button class="btn-principal" (click)="closeModal()">
+        <mat-icon>close</mat-icon> Cerrar
+    </button>
+</app-dialog-actions>

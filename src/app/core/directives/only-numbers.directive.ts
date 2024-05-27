@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class OnlyNumbersDirective {
 
-    private pattern = /^[0 - 9]*$/;
+    private pattern = /^[0-9]*$/;
 
     constructor(private el: ElementRef) {
     }

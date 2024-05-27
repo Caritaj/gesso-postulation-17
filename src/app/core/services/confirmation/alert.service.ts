@@ -11,7 +11,7 @@ export class AlertDialogService {
         message: 'Are you sure you want to confirm this action?',
         icon: {
             show: true,
-            name: 'info',
+            name: 'help',
             color: 'warning',
         },
         actions: {

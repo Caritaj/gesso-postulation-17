@@ -1,0 +1,8 @@
+<div class="app-filters-container filters-container mb-3">
+    <app-search-box [(ngModel)]="textSearch" [placeholder]="'Buscar...'"
+        (inputChange)="setSearchFilterValue($event)"></app-search-box>
+    <span class="filter-space"></span>
+    <button class="button-clean py-2" mat-raised-button [disabled]="!activeFilters.length" (click)="clearFilters()">
+        <mat-icon>clear</mat-icon> Limpiar filtros
+    </button>
+</div>

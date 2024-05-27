@@ -1,0 +1,40 @@
+.margin-button-register {
+    margin-right: 10px;
+}
+
+.custom-button {
+    width: 12%;
+}
+
+.mat-expansion-panel {
+    padding: 0.2rem;
+}
+
+.mat-expansion-panel-header {
+    background-color: #004e8b;
+}
+
+.panel-description {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mat-expansion-indicator::after {
+    color: #fff !important;
+}
+
+.icon {
+    color: white;
+}
+
+.mat-expansion-panel-header-title {
+    color: #fff !important;
+}
+
+.mat-expansion-panel-header:hover {
+    background-color: #004e8b !important;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+    background-color: #004e8b !important;
+}

@@ -1,0 +1,77 @@
+<table mat-table [dataSource]="data" class="mat-table--lite mt-3">
+
+    <!-- Columna Grado -->
+    <ng-container matColumnDef="grado">
+        <th mat-header-cell *matHeaderCellDef>
+            <div [ngStyle]="{'width.px': 240}">Grado de instrucción</div>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{filterEducationLevels(element.id_level)}}
+        </td>
+    </ng-container>
+
+    <!-- Columna Especializacion -->
+    <ng-container matColumnDef="especializacion">
+        <th mat-header-cell *matHeaderCellDef>
+            <div [ngStyle]="{'width.px': 240}">Especializacion</div>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.specialty}} </td>
+    </ng-container>
+
+    <!-- Columna Centro -->
+    <ng-container matColumnDef="centro">
+        <th mat-header-cell *matHeaderCellDef>
+            <div [ngStyle]="{'width.px': 180}">Centro de estudios</div>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.center}} </td>
+    </ng-container>
+
+    <!-- Columna Inicio -->
+    <ng-container matColumnDef="inicio">
+        <th mat-header-cell *matHeaderCellDef> Fecha de inicio </th>
+        <td mat-cell *matCellDef="let element"> {{element.date_start | date: 'dd/MM/yyyy'}}
+        </td>
+    </ng-container>
+
+    <!-- Columna Fin -->
+    <ng-container matColumnDef="fin">
+        <th mat-header-cell *matHeaderCellDef> Fecha de fin </th>
+        <td mat-cell *matCellDef="let element"> {{element.date_end | date: 'dd/MM/yyyy'}}
+        </td>
+    </ng-container>
+
+    <!-- Columna Editar -->
+    <ng-container matColumnDef="editar">
+        <th class="text-center" mat-header-cell *matHeaderCellDef>
+            <div [ngStyle]="{'width.px': 50}">Editar</div>
+        </th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+            <button class="btn-icon" (click)="editAcademicTraining(element)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <!-- Columna Eliminar -->
+    <ng-container matColumnDef="eliminar">
+        <th class="text-center" mat-header-cell *matHeaderCellDef>
+            <div [ngStyle]="{'width.px': 50}">Eliminar</div>
+        </th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+            <button class="btn-icon" (click)="deleteAcademicTraining(element.id)">
+                <mat-icon color="warn">delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+</mat-paginator>
+
+<div>
+    <button mat-raised-button class="btn-principal w-full lg:w-2/12" (click)="openAcademicTraining()">
+        <mat-icon>add</mat-icon> Agregar
+    </button>
+</div>

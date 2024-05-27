@@ -1,24 +1,16 @@
-/**
- * Component Base Class Table
- */
-import {
-    AfterViewInit, Directive, EventEmitter,
-    HostListener, Injector, OnInit,
-    Output, ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Directive, EventEmitter, Injector, OnInit, Output, ViewChild, } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-
 import { Observable, Subject, Subscription, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { CollectionFilter } from 'src/app/types/collection-filter';
-import { NotificationService } from '../../service/notification/notification.service';
-import { CollectionQueryParams } from 'src/app/types/collection-query-params';
-
-
-
+import { CollectionFilter } from '../core/types/collection-filter';
+import { NotificationService } from '../core/services/notification/notification.service';
+import { CollectionQueryParams } from '../core/types/collection-query-params';
+/**
+ * Component Base Class Table
+ */
 @Directive()
 export class TableViewComponent<T> implements OnInit, AfterViewInit {
 
@@ -28,7 +20,7 @@ export class TableViewComponent<T> implements OnInit, AfterViewInit {
     @Output() selectionChange = new EventEmitter<T[]>();
 
     // @config llama a loadData inmediatamente
-    autoload = true;
+    autoLoad = true;
     // Propiedades disponibles
     pageSize = 10;
     pageIndex = 0;
@@ -49,28 +41,14 @@ export class TableViewComponent<T> implements OnInit, AfterViewInit {
     // Contiene la data que es visualizada en la interfaz
     data!: T[];
     totalRecords = 0;
-    protected notificacionService: NotificationService;
-    private loadObs = new Subject();
-    private load = this.loadObs.asObservable();
+    protected notificationService: NotificationService;
+    protected loadObs = new Subject();
+    protected load = this.loadObs.asObservable();
 
     constructor(
         injector: Injector,
     ) {
-        this.notificacionService = injector.get(NotificationService);
-    }
-
-    // Keyboard listeners
-    @HostListener('window:keyup', ['$event'])
-    keyEvent(e: KeyboardEvent): void {
-        const me = this;
-        if ((e.target as Element).tagName !== 'BODY') {
-            return;
-        }
-        // Permite actualizar la data presionando la tecla A
-        if (e.code === 'KeyA') {
-            me.loadData();
-            return;
-        }
+        this.notificationService = injector.get(NotificationService);
     }
 
     ngOnInit(): void {
@@ -79,7 +57,7 @@ export class TableViewComponent<T> implements OnInit, AfterViewInit {
         me.subscribeRouteParams();
         me.loadDatasets();
         me._createSelectionModel();
-        if (me.autoload) {
+        if (me.autoLoad) {
             me.loadData();
         }
     }
@@ -105,9 +83,13 @@ export class TableViewComponent<T> implements OnInit, AfterViewInit {
     }
 
 
-    subscribeRouteParams(): void { }
+    subscribeRouteParams(): void {
+        'TODO:subscribeRouteParams';
+    }
 
-    loadDatasets(): void { }
+    loadDatasets(): void {
+        'TODO:loadDatasets';
+    }
 
     _createSelectionModel(): void {
         const me = this;
@@ -150,12 +132,12 @@ export class TableViewComponent<T> implements OnInit, AfterViewInit {
             }
         }
         // Filters
-        if (filters && filters.length) {
+        if (filters?.length) {
             out.filter = filters;
         }
         // Sorters
         // Por ahora solo está soportando un simple sort
-        if (sorter && sorter.active && sorter.direction) {
+        if (sorter?.active && sorter.direction) {
             out.sorter = [{ field: sorter.active, direction: sorter.direction }];
         }
         return out;
@@ -268,7 +250,7 @@ export class TableViewComponent<T> implements OnInit, AfterViewInit {
      * Solo notificará los errores de servidor componentes tipo component
      */
     handleServerError(xhr: any): void {
-        this.notificacionService.handleXhrError(xhr);
+        this.notificationService.handleXhrError(xhr);
     }
 
 }

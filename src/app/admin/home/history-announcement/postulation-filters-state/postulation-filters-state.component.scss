@@ -1,0 +1,22 @@
+.filter-space {
+    flex: 1 1 0%;
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.button-clean {
+    background-color: #343a40;
+    color: #fff;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    cursor: pointer;
+}
+
+.button-clean:disabled {
+    background-color: #ccc;
+    color: #666;
+}

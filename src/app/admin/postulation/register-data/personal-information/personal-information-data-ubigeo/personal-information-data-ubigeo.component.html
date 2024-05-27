@@ -1,0 +1,41 @@
+<form class="pt-8 px-3" [formGroup]="personDataUbigeoFormGroup" *ngIf="personDataUbigeoFormGroup">
+    <div formGroupName="ubigeo">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Departamento</mat-label>
+                <mat-select formControlName="level1Id">
+                    <mat-option *ngFor="let item of departments" [value]="item.id">{{ item.text
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Provincia</mat-label>
+                <mat-select formControlName="level2Id">
+                    <mat-option *ngFor="let item of provinces" [value]="item.id">{{ item.text
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Distrito</mat-label>
+                <mat-select formControlName="level3Id" name="districts-ubi">
+                    <mat-option *ngFor="let item of districts" [value]="item.id">{{ item.text
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Ámbito/Comunidad</mat-label>
+                <input type="text" [maxLength]="80" matInput formControlName="level4Name" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Sector/Barrio</mat-label>
+                <input type="text" [maxLength]="80" matInput formControlName="level4Name" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Dirección</mat-label>
+                <input type="text" [maxLength]="80" matInput disabled />
+            </mat-form-field>
+        </div>
+    </div>
+</form>

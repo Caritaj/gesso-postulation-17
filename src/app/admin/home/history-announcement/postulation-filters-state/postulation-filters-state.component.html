@@ -1,0 +1,18 @@
+<div class="app-filters-container filters-container mb-3">
+    <app-search-box [(ngModel)]="textSearch" [placeholder]="'Buscar...'"
+        (inputChange)="setSearchFilterValue($event)"></app-search-box>
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="selectedState" placeholder="--Seleccionar--" (selectionChange)="onStateChange($event)">
+            <mat-option *ngFor="let item of [
+                    { id: 'CANCELLED', name: 'Cancelado' },
+                    { id: 'CLOSED', name: 'Concluido' },
+                    { id: 'PROCESS', name: 'En proceso' },
+                ]" [value]="item.id">{{ item.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span class="filter-space"></span>
+    <button class="button-clean" mat-raised-button [disabled]="!activeFilters.length" (click)="clearFilters()">
+        <mat-icon>clear</mat-icon> Limpiar filtros
+    </button>
+</div>

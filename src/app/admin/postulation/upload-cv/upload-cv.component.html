@@ -1,0 +1,54 @@
+<div class="bg-white shadow-md">
+    <div class="bg-principal text-white px-4 py-2 text-sm">
+        Adjuntar/Ver Documento
+    </div>
+    <div class="p-4">
+        <div>
+            <mat-label class="inline-block max-w-full mb-1 font-bold"> {{person!= null && person.hasCV ? 'Reemplazar' :
+                'Adjuntar'}}
+                Documento: </mat-label>
+            <div class="flex gap-4">
+                <div class="w-1/2 relative">
+                    <input type="file" id="BSbtndanger" tabindex="-1" class="absolute top-0 left-0 w-0 h-0 opacity-0"
+                        (change)="uploadFileEvent($event)">
+                    <div class="flex items-center">
+                        <input type="text"
+                            class="form-control w-full bg-gray-200 border border-gray-300 rounded px-4 py-2"
+                            placeholder="" disabled [value]="fileName">
+                        <button mat-raised-button class="btn-view w-1/2">
+                            <label for="BSbtndanger" class="flex items-center cursor-pointer text-white">
+                                <span class="icon-span-filestyle">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                </span>
+                                <mat-icon>folder_open</mat-icon>Seleccionar archivo
+                            </label>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-1/2">
+                    <button mat-raised-button
+                        class="btn-download bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800"
+                        (click)="uploadFile()">
+                        <mat-icon class="mr-2">cloud_upload</mat-icon>Cargar archivo
+                    </button>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="mt-8" *ngIf="person != null && person.hasCV">
+            <mat-label class="inline-block max-w-full mb-1 font-bold">Curriculum Vitae:</mat-label>
+            {{person.cvUrlViewer}}
+            <button mat-raised-button class="btn-download mx-2" (click)="downloadFile()">
+                <mat-icon>download</mat-icon>Descargar
+            </button>
+            <button mat-raised-button class="btn-view" (click)="viewFile()">
+                <mat-icon>visibility</mat-icon>Ver
+            </button>
+        </div>
+        <div class="view-frame" *ngIf="fileBlob">
+            <iframe [src]="fileBlob" width="900" height="800"></iframe>
+        </div>
+    </div>
+</div>

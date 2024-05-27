@@ -1,0 +1,69 @@
+<div class="border-solid border-2 border-gray-200">
+    <div class="bg-white shadow-md">
+        <div class="bg-principal text-white px-4 py-2 text-sm">
+            Listado de Convocatorias Abiertas
+        </div>
+        <p class="text-sm bg-red-200 text-justify p-3 italic">
+            <span class="font-bold">Atención: </span>Antes de postular, recuerde que sus datos deberán estar
+            actualizados a la fecha de postulación. De no ser el caso,
+            podrá editar la información a fin de realizar las modificaciones que correspondan.
+        </p>
+        <div class="p-4">
+            <table mat-table [dataSource]="data" class="mat-table--lite">
+
+                <!-- Columna Puesto -->
+                <ng-container matColumnDef="puesto">
+                    <th class="text-center" mat-header-cell *matHeaderCellDef> Puestos de
+                        trabajo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.jobPositionName}} </td>
+                </ng-container>
+
+                <!-- Columna Vacantes -->
+                <ng-container matColumnDef="vacantes">
+                    <th class="text-center" mat-header-cell *matHeaderCellDef> Nro de
+                        vacantes </th>
+                    <td class="text-center" mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+                </ng-container>
+
+                <!-- Columna Contratista -->
+                <ng-container matColumnDef="contratista">
+                    <th class="text-center" mat-header-cell *matHeaderCellDef> Contratista
+                    </th>
+                    <td class="text-center" mat-cell *matCellDef="let element"> {{element.companyName}}
+                    </td>
+                </ng-container>
+
+                <!-- Columna Periodo -->
+                <ng-container matColumnDef="periodo">
+                    <th class="text-center" mat-header-cell *matHeaderCellDef> Periodo de
+                        Postulación </th>
+                    <td class="text-center" mat-cell *matCellDef="let element"> {{element.startDate | date:
+                        'dd/MM/yyyy' }} - {{element.endDate | date: 'dd/MM/yyyy' }} </td>
+                </ng-container>
+
+                <!-- Columna Postular -->
+                <ng-container matColumnDef="postular">
+                    <th class="text-center" mat-header-cell *matHeaderCellDef> Postular
+                    </th>
+                    <td class="text-center" mat-cell *matCellDef="let element">
+                        <button class="btn-icon" (click)="openDialog(element.id)">
+                            <mat-icon color="primary">border_color</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- No data row -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell">Sin datos que mostrar</td>
+                </tr>
+            </table>
+
+            <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+            </mat-paginator>
+
+        </div>
+    </div>
+</div>

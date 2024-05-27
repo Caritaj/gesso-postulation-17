@@ -45,7 +45,7 @@ export class HeaderComponent {
     this.spinner.show();
     setTimeout(() => {
       this.service.removeSession();
-      this.router.navigate(['/postulate']);
+      this.router.navigate(['/login']);
       this.spinner.hide();
     }, 1000);
   }

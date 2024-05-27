@@ -1,0 +1,93 @@
+<app-dialog-header (closeClick)="close()">
+    {{isCreationMode()?'AGREGAR':'EDITAR'}} Capacitaciones
+</app-dialog-header>
+<app-dialog-content>
+    <form [formGroup]="formGroup" class="p-4" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Tipo de capacitación</mat-label>
+                <mat-select formControlName="typeId" placeholder="--Seleccionar--">
+                    <mat-option *ngFor="let item of capacitationType" [value]="item.id">
+                        {{ item.text }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('typeId','required')">Requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Nivel de capacitación</mat-label>
+                <mat-select formControlName="levelId" placeholder="--Seleccionar--">
+                    <mat-option *ngFor="let item of trainingLevel" [value]="item.id">
+                        {{ item.text }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('levelId','required')">Requerido</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Institución</mat-label>
+                <input matInput type="text" formControlName="institution">
+                <mat-error *ngIf="hasError('institution','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('institution','minlength')">{{getMinLengthErrorMessage('institution')}}</mat-error>
+                <mat-error
+                    *ngIf="hasError('institution','maxlength')">{{getMaxLengthErrorMessage('institution')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="description" rows="5"></textarea>
+                <mat-error *ngIf="hasError('description','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('description','minlength')">{{getMinLengthErrorMessage('description')}}</mat-error>
+                <mat-error
+                    *ngIf="hasError('description','maxlength')">{{getMaxLengthErrorMessage('description')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Fecha de inicio</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" appInputMask [matDatepicker]="startDatePicker"
+                    formControlName="date_start">
+                <mat-error *ngIf="hasError('date_start','required')">Requerido</mat-error>
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Fecha de fin</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" appInputMask [matDatepicker]="endDatePicker"
+                    formControlName="date_end">
+                <mat-error *ngIf="hasError('date_end','required')">Requerido</mat-error>
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Horas</mat-label>
+                <input matInput type="text" formControlName="hours" onlyNumbers [maxlength]="10">
+                <mat-error *ngIf="hasError('hours','required')">Requerido</mat-error>
+            </mat-form-field>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div>
+                    <mat-label>¿Capacitación interna?: <span class="text-red-500">(*)</span></mat-label>
+                </div>
+                <div>
+                    <mat-radio-group formControlName="is_internal" class="radio-group">
+                        <div class="grid grid-cols-1 md:grid-cols-2">
+                            <mat-radio-button color="primary" [value]="true">Sí</mat-radio-button>
+                            <mat-radio-button color="primary" [value]="false">No</mat-radio-button>
+                        </div>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <button type="submit" #submitButton hidden></button>
+    </form>
+</app-dialog-content>
+<app-dialog-actions>
+    <button mat-flat-button (click)="submitButton.click()"
+        class="mr-2 btn-principal">{{isCreationMode()?'REGISTRAR':'GUARDAR'}}</button>
+    <button mat-stroked-button type="button" (click)="close()">CANCELAR</button>
+</app-dialog-actions>

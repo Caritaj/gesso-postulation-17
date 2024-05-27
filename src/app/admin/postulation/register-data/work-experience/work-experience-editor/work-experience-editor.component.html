@@ -1,0 +1,83 @@
+<app-dialog-header (closeClick)="close()">
+    {{isCreationMode()?'AGREGAR':'EDITAR'}} Experiencia laboral
+</app-dialog-header>
+<app-dialog-content>
+    <form [formGroup]="formGroup" class="p-4" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Empresa/Organización</mat-label>
+                <input matInput type="text" formControlName="companyName">
+                <mat-error *ngIf="hasError('companyName','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('companyName','minlength')">{{getMinLengthErrorMessage('companyName')}}</mat-error>
+                <mat-error
+                    *ngIf="hasError('companyName','maxlength')">{{getMaxLengthErrorMessage('companyName')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Tipo mano de obra</mat-label>
+                <mat-select formControlName="typeId" placeholder="--Seleccionar--">
+                    <mat-option *ngFor="let item of molType" [value]="item.id">
+                        {{ item.text }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('typeId','required')">Requerido</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Área/Unidad/Dpto de trabajo</mat-label>
+                <input matInput type="text" formControlName="areaName">
+                <mat-error *ngIf="hasError('areaName','required')">Requerido</mat-error>
+                <mat-error *ngIf="hasError('areaName','minlength')">{{getMinLengthErrorMessage('areaName')}}</mat-error>
+                <mat-error *ngIf="hasError('areaName','maxlength')">{{getMaxLengthErrorMessage('areaName')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Puesto de trabajo</mat-label>
+                <input matInput type="text" formControlName="positionName">
+                <mat-error *ngIf="hasError('positionName','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('positionName','minlength')">{{getMinLengthErrorMessage('positionName')}}</mat-error>
+                <mat-error
+                    *ngIf="hasError('positionName','maxlength')">{{getMaxLengthErrorMessage('positionName')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Fecha de inicio</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" appInputMask [matDatepicker]="startDatePicker"
+                    formControlName="start_date">
+                <mat-error *ngIf="hasError('start_date','required')">Requerido</mat-error>
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Fecha de fin</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" appInputMask [matDatepicker]="endDatePicker"
+                    formControlName="end_date">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-2">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="description" rows="5"></textarea>
+                <mat-error *ngIf="hasError('description','required')">Requerido</mat-error>
+                <mat-error
+                    *ngIf="hasError('description','minlength')">{{getMinLengthErrorMessage('description')}}</mat-error>
+                <mat-error
+                    *ngIf="hasError('description','maxlength')">{{getMaxLengthErrorMessage('description')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <button type="submit" #submitButton hidden></button>
+    </form>
+</app-dialog-content>
+<app-dialog-actions>
+    <button mat-flat-button (click)="submitButton.click()"
+        class="mr-2 btn-principal">{{isCreationMode()?'REGISTRAR':'GUARDAR'}}</button>
+    <button mat-stroked-button type="button" (click)="close()">CANCELAR</button>
+</app-dialog-actions>

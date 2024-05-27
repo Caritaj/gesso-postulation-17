@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
     imports: [
@@ -17,8 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatDatepickerModule,
         MatButtonModule,
         MatDialogModule,
-        MatNativeDateModule, // Añádelo aquí
-        // Otros módulos de Angular Material
+        MatNativeDateModule,
+        MatRadioModule,
     ],
     exports: [
         MatIconModule,
@@ -28,8 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatDatepickerModule,
         MatButtonModule,
         MatDialogModule,
-        MatNativeDateModule, // Y aquí también
-        // Otros módulos de Angular Material
+        MatNativeDateModule,
+        MatRadioModule,
     ]
 })
 export class MaterialModule { }

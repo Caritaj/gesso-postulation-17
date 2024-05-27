@@ -3,7 +3,7 @@ export interface AlertsDialogConfig {
     message?: string;
     icon?: {
         show?: boolean;
-        name?: 'info' | 'error' | 'warning' | 'check_circle';
+        name?: 'help' | 'error' | 'warning' | 'check_circle';
         color?: 'info' | 'error' | 'warning' | 'success';
     };
     actions?: {

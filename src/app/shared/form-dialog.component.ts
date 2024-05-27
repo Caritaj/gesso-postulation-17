@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../core/services/notification/notification.service';
 import { environment } from '../../environments/environment';
 import { AlertDialogService } from '../core/services/confirmation/alert.service';
+import { ToastrService } from 'ngx-toastr';
 
 type ErrorCode = 'required' | 'minlength' | 'maxlength' | 'min' | 'max' | 'pattern';
 /**
@@ -44,7 +45,8 @@ export abstract class FormDialogComponent<T> implements OnInit {
     protected formFields: FormFields = {};
     protected fbHelper: FormBuilderHelper;
     protected notificationService: NotificationService;
-    protected alertDialogService: AlertDialogService
+    protected alertDialogService: AlertDialogService;
+    protected toastr: ToastrService;
 
     constructor(
         protected injector: Injector,
@@ -54,6 +56,7 @@ export abstract class FormDialogComponent<T> implements OnInit {
         this.fbHelper = injector.get(FormBuilderHelper);
         this.notificationService = injector.get(NotificationService);
         this.alertDialogService = injector.get(AlertDialogService);
+        this.toastr = injector.get(ToastrService);
         this.model = inputData?.model ? inputData.model : this.createModel();
         this.setupFormFieldsDefinition();
     }
@@ -142,27 +145,12 @@ export abstract class FormDialogComponent<T> implements OnInit {
 
     onSaveSuccess(rec: T): void {
         const me = this;
-        this.alertDialogService.open({
-            title: 'Hecho',
-            message: me.isCreationMode()
-                ? me.getSuccessCreationMessage(rec)
-                : me.getSuccessUpdateMessage(rec),
-            icon: { name: 'check_circle', color: 'success' },
-            actions: {
-                confirm: {
-                    show: false,
-                    label: 'Confirmar',
-                },
-                cancel: {
-                    show: false,
-                    label: 'Cancelar',
-                },
-            },
-            dismissible: true,
-        });
+        const message = me.isCreationMode()
+            ? me.getSuccessCreationMessage(rec)
+            : me.getSuccessUpdateMessage(rec);
+        this.toastr.success(message);
         me.dialogRef.close(rec);
     }
-
 
     onSaveError(xhr: HttpErrorResponse): void {
         const me = this;

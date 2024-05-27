@@ -1,3 +1,5 @@
+@import 'ngx-toastr/toastr';
+
 @tailwind components;
 @tailwind utilities;
 
@@ -22,8 +24,25 @@ body {
 }
 
 .btn-principal {
+    background-color: #05263f !important;
+    color: #ffffff !important;
+}
+
+.btn-view {
+    background-color: #207f9b !important;
+    color: #ffffff !important;
+}
+
+.btn-download {
+    background-color: #2a882a !important;
+    color: #ffffff !important;
+}
+
+.btn-principal-filter {
     background-color: #004e8b !important;
     color: #ffffff !important;
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
 }
 
 //scrollbar
@@ -51,4 +70,152 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #0000005f;
+}
+
+
+// Table
+$cellHorizontalPadding: 8px;
+$cellVerticalPadding: 0px;
+$cellBorderColor: hsl(213, 27%, 84%);
+
+.mat-table--lite {
+    border-collapse: separate;
+
+    >thead tr.mat-mdc-header-row {
+        height: 36px !important;
+    }
+
+    >tbody .mat-mdc-row {
+        height: 30px !important;
+
+        &:hover:not(.mat-mdc-header-row):not(.matx-detail-row) {
+            background-color: #f1f5f9
+        }
+
+        &.matx-detail-row:hover {
+            background-color: unset;
+            cursor: unset;
+        }
+    }
+
+    >thead th.mdc-data-table__header-cell {
+        padding: 0 $cellHorizontalPadding !important;
+        border-left: 1px solid $cellBorderColor;
+        background-color: #05263f;
+        color: #fff;
+
+        div {
+            text-align: left;
+        }
+    }
+
+    >tbody td.mat-mdc-cell {
+        padding: $cellVerticalPadding $cellHorizontalPadding;
+        border-right: 1px solid #cbd5e1;
+        border-bottom: 1px solid #cbd5e1 !important;
+
+        &:first-child {
+            border-left: 1px solid #cbd5e1;
+        }
+    }
+
+    >tbody td.mat-cell {
+        padding: $cellVerticalPadding $cellHorizontalPadding;
+        border-right: 1px solid #cbd5e1;
+        border-bottom: 1px solid #cbd5e1 !important;
+
+        &:first-child {
+            border-left: 1px solid #cbd5e1;
+        }
+    }
+
+    .mat-table-sticky-border-elem-right {
+        border-left: 1px solid $cellBorderColor;
+    }
+
+    .mat-table-sticky-border-elem-left {
+        border-right: 1px solid $cellBorderColor;
+    }
+
+    >tbody tr.matx-detail-row {
+        height: 0;
+
+        >td {
+            padding: 0;
+        }
+    }
+
+    .detail-row-content {
+        overflow: hidden;
+    }
+}
+
+.app-filters-container {
+    .mat-form-field-wrapper {
+        padding: 0;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-wrapper {
+        margin: 0;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 4px 0 11px 0;
+    }
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.custom-icon {
+    color: #2a882a;
+}
+
+.btn-icon {
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+        background: none;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.mdc-tab-ripple {
+    border: 1px solid gray;
+}
+
+.mat-mdc-tab-ripple {
+    border: 1px solid gray;
+}
+
+.mdc-tab-indicator--active {
+    background-color: #0e4e7f !important;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #fff !important;
+    font-size: 14px;
+}
+
+.mdc-tab__text-label {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: normal;
+}
+
+.mat-mdc-tab-body-wrapper {
+    border: 1px solid transparent !important;
+}
+
+.mdc-text-field--disabled {
+    background-color: #f0f0f0 !important;
+    border-radius: 4px;
 }

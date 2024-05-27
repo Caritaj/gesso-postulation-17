@@ -1,0 +1,124 @@
+<app-header></app-header>
+<div>
+    <h3 class="text-principal text-3xl font-bold mt-10 mx-10 uppercase">
+        Estimado Postulante
+    </h3>
+    <h3 class="text-principal text-justify mx-10 my-0 py-0 text-lg font-normal mt-4">
+        Esta plataforma digital le brinda la oportunidad de postularse para los puestos de trabajo ofrecidos por
+        diversas empresas contratistas y MINSUR – Unidad Minera San Rafael.<br>
+        Le recomendamos que al postularse para un puesto en particular, tenga en cuenta su experiencia laboral y
+        formación académica relacionada. También es aconsejable mantener su Curriculum vitae actualizado en esta
+        plataforma para reflejar con precisión su perfil profesional.
+    </h3>
+    <div>
+        <mat-tab-group class="p-10" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="0ms"
+            (selectedTabChange)="onTabChange($event)">
+            <mat-tab label="Convocatorias vigentes">
+                <app-current-calls></app-current-calls>
+            </mat-tab>
+            <mat-tab label="Mis postulaciones">
+                <ng-container *ngIf="isPostulationListActive">
+                    <app-my-postulations></app-my-postulations>
+                </ng-container>
+            </mat-tab>
+            <mat-tab label="Registro y actualización de CV">
+                <ng-container>
+                    <div class="app-buttons-container py-3">
+                        <button mat-raised-button class="margin-button-register" (click)="accordion.openAll()">Expandir
+                            todo</button>
+                        <button mat-raised-button (click)="accordion.closeAll()">Desplegar todo</button>
+                    </div>
+                    <mat-accordion class="example-headers-align" multi *ngIf="isRegisterDataUserActive">
+                        <div>
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>1. Información Personal</mat-panel-title>
+                                    <mat-panel-description class="panel-description"><mat-icon
+                                            class="icon">account_circle</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <app-personal-information [documentTypes]="documentTypes" [civilStates]="civilStates"
+                                    [genders]="genders" [licenseDrives]="licenseDrives"
+                                    [personId]="person"></app-personal-information>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>2. Lugar de nacimiento</mat-panel-title>
+                                    <mat-panel-description class="panel-description"><mat-icon
+                                            class="icon">person_pin_circle</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <app-personal-information-data-birth [personId]="person" [provinces]="provinces"
+                                    [districts]="districts"
+                                    [departments]="departments"></app-personal-information-data-birth>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>3. Lugar de residencia</mat-panel-title>
+                                    <mat-panel-description class="panel-description"><mat-icon
+                                            class="icon">place</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <app-personal-information-data-ubigeo [personId]="person" [provinces]="provinces"
+                                    [districts]="districts"
+                                    [departments]="departments"></app-personal-information-data-ubigeo>
+                            </mat-expansion-panel>
+                        </div>
+                        <div>
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>4. Formación académica (educación)</mat-panel-title>
+                                    <mat-panel-description class="panel-description">
+                                        <mat-icon class="icon">school</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <app-academic-training [educationLevels]="educationLevels"
+                                    [personId]="person"></app-academic-training>
+                            </mat-expansion-panel>
+                        </div>
+                        <div>
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>5. Capacitaciones
+                                        (cursos/talleres/especializaciones)</mat-panel-title>
+                                    <mat-panel-description class="panel-description">
+                                        <mat-icon class="icon">library_books</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <app-training [trainingLevel]="trainingLevel" [personId]="person"
+                                    [capacitationType]="capacitationType"></app-training>
+                            </mat-expansion-panel>
+                        </div>
+                        <div>
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>6. Experiencia laboral</mat-panel-title>
+                                    <mat-panel-description class="panel-description">
+                                        <mat-icon class="icon">work</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <app-work-experience [molType]="molType" [personId]="person"></app-work-experience>
+                            </mat-expansion-panel>
+                        </div>
+                    </mat-accordion>
+                </ng-container>
+            </mat-tab>
+            <mat-tab label="Subir Curriculum vitae">
+                <ng-container *ngIf="isCvUploadActive">
+                    <app-upload-cv [person]="person" (documentsUpdated)="onDocumentsUpdated()"></app-upload-cv>
+                </ng-container>
+            </mat-tab>
+            <mat-tab label="Otros Documentos">
+                <ng-container *ngIf="isOtherDocumentsActive">
+                    <app-other-documents [person]="person" [filesUploaded]="filesUploaded"
+                        (documentsUpdated)="onDocumentsUpdated()"></app-other-documents>
+                </ng-container>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</div>
+<app-footer></app-footer>

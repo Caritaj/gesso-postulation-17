@@ -1,0 +1,47 @@
+<div class="filters">
+    <app-postulation-filters-state class="w-full" (filtersChange)="onFiltersChange($event)"
+        (searchFilterChange)="onSearchFilterChange($event)"></app-postulation-filters-state>
+</div>
+<table mat-table [dataSource]="data" class="mat-table--lite">
+    <!-- Columna Puesto -->
+    <ng-container matColumnDef="position">
+        <th class="color" mat-header-cell *matHeaderCellDef> Puesto de Trabajo </th>
+        <td mat-cell *matCellDef="let element"> {{element.jobPositionName}} </td>
+    </ng-container>
+
+    <!-- Columna Vacantes -->
+    <ng-container matColumnDef="vacancies">
+        <th class="color text-center " mat-header-cell *matHeaderCellDef> Nro. de Vacantes </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.quantity}} </td>
+    </ng-container>
+
+    <!-- Columna Requisitos -->
+    <ng-container matColumnDef="requirements">
+        <th class="color text-center" mat-header-cell *matHeaderCellDef> Requisitos </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+            <span class="underline text-principal cursor-pointer" (click)="openDialog(element.id)" (keypress)="openDialog(element.id)">Ver
+                requisitos</span>
+        </td>
+    </ng-container>
+    
+    <!-- Columna Contratista --> 
+    <ng-container matColumnDef="contractor">
+        <th class="color text-center" mat-header-cell *matHeaderCellDef> Contratista </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.companyName}} </td>
+    </ng-container>
+
+    <!-- Columna Estado -->
+    <ng-container matColumnDef="period">
+        <th class="color text-center" mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.statusName}} </td>
+    </ng-container>
+
+    <tr class="title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <!-- No data row -->
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell">Sin datos que mostrar</td>
+    </tr>
+</table>
+<mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+</mat-paginator>

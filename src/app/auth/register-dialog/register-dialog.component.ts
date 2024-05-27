@@ -8,9 +8,12 @@ import { PostulationService } from '../../core/services/postulation.service';
 import { Person } from '../../core/models/persona';
 import { Observable } from 'rxjs';
 import { MaterialModule } from '../../shared/material.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DOCUMENT_TYPE, GENDER } from './types-select';
 import { DialogFormatModule } from '../../shared/dialog-format.module';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MY_FORMATS } from '../../core/types/custom-date-format';
 
 @Component({
   selector: 'app-register-dialog',
@@ -20,6 +23,15 @@ import { DialogFormatModule } from '../../shared/dialog-format.module';
     MaterialModule,
     ReactiveFormsModule,
     CommonModule,
+  ],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    DatePipe,
   ],
   templateUrl: './register-dialog.component.html',
 })
