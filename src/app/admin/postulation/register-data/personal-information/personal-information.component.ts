@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Person } from '../../../../core/models/persona';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
@@ -6,18 +6,19 @@ import { PostulationService } from '../../../../core/services/postulation.servic
 import { FormBuilderHelper } from '../../../../shared/form-builder-helper';
 import { PERSON_DATA_FIELDS } from './register-data.fields';
 import { MaterialModule } from '../../../../shared/material.module';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { AlertDialogService } from '../../../../core/services/confirmation/alert.service';
 import { ToastrService } from 'ngx-toastr';
 import { DirectivesModule } from '../../../../core/directives/directives.module';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from '../../../../core/types/custom-date-format';
+import { CboModel } from '../../../../core/models/cbo-model';
+
 @Component({
   selector: 'app-personal-information',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MaterialModule,
     DirectivesModule,
@@ -33,13 +34,14 @@ import { MY_FORMATS } from '../../../../core/types/custom-date-format';
   ],
   templateUrl: './personal-information.component.html',
 })
-export class PersonalInformationComponent implements OnChanges {
+export class PersonalInformationComponent implements OnInit {
 
-  @Input() licenseDrives!: any[];
-  @Input() civilStates!: any[];
-  @Input() genders!: any[];
-  @Input() documentTypes!: any[];
-  @Input() personId!: Person;
+  licenseDrives = input<CboModel[]>();
+  genders = input<CboModel[]>();
+  documentTypes = input<CboModel[]>();
+  civilStates = input<CboModel[]>();
+  personId = input<Person>();
+
   personDataFormGroup!: FormGroup;
   msgError = 'Los datos ingresados no son válidos. Por favor, revisa los campos del formulario e inténtalo nuevamente';
 
@@ -52,18 +54,18 @@ export class PersonalInformationComponent implements OnChanges {
   ) {
     this.defineFormGroups();
   }
+  
+  ngOnInit() {
+    this._SetData();
+  }
 
   defineFormGroups(): void {
     const values = {};
     this.personDataFormGroup = this.formBuilderHelper.buildFormGroup(PERSON_DATA_FIELDS, values);
   }
 
-  ngOnChanges() {
-    this._SetData();
-  }
-
   _SetData(): void {
-    this.setPersonaForm(this.personId);
+    this.setPersonaForm(this.personId()!);
   }
   setPersonaForm(person: Person): void {
     if (!person) return;

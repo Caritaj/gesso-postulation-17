@@ -86,7 +86,7 @@ export class NotificationService {
         this.alertDialogService.open({
             title: me.xhrErrorMessageTitle,
             message,
-            icon: { show: false },
+            icon: { name: 'error', color: 'error' },
             actions: {
                 confirm: {
                     label: 'ACEPTAR',

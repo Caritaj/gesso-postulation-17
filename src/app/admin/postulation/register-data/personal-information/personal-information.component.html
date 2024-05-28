@@ -1,25 +1,25 @@
-<form class="py-5 px-3" [formGroup]="personDataFormGroup" *ngIf="personDataFormGroup">
+<form class="py-5 px-3" [formGroup]="personDataFormGroup">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Apellido Paterno</mat-label>
             <input type="text" [maxLength]="80" matInput formControlName="lastPatName" />
-            <mat-error *ngIf="personDataFormGroup.get('lastPatName')?.hasError('required')">
-                Ingresa tu apellido paterno
-            </mat-error>
+            @if (personDataFormGroup.get('lastPatName')?.hasError('required')) {
+            <mat-error>Ingresa tu apellido Paterno</mat-error>
+            }
         </mat-form-field>
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Apellido Materno</mat-label>
+            @if (personDataFormGroup.get('lastMatName')?.hasError('required')) {
+            <mat-error>Ingresa tu apellido materno</mat-error>
+            }
             <input type="text" [maxLength]="80" matInput formControlName="lastMatName" />
-            <mat-error *ngIf="personDataFormGroup.get('lastMatName')?.hasError('required')">
-                Ingresa tu apellido materno
-            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Primer Nombre</mat-label>
             <input type="text" [maxLength]="80" matInput formControlName="firstName" />
-            <mat-error *ngIf="personDataFormGroup.get('firstName')?.hasError('required')">
-                Ingresa tu nombre
-            </mat-error>
+            @if (personDataFormGroup.get('firstName')?.hasError('required')) {
+            <mat-error>Ingresa tu nombre</mat-error>
+            }
         </mat-form-field>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-2">
@@ -30,8 +30,9 @@
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Tipo de Documento</mat-label>
             <mat-select formControlName="docTypeId" placeholder="-- Seleccionar --">
-                <mat-option *ngFor="let item of documentTypes" [value]="item.id">{{
-                    item.text }}</mat-option>
+                @for(item of documentTypes(); track item){
+                <mat-option [value]="item.id">{{item.text}}</mat-option>
+                }
             </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" floatLabel="always">
@@ -49,22 +50,24 @@
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Estado Civil</mat-label>
             <mat-select formControlName="civilStatusId" placeholder="-- Seleccionar --">
-                <mat-option *ngFor="let item of civilStates" [value]="item.id">{{ item.text
-                    }}</mat-option>
+                @for(item of civilStates(); track item){
+                <mat-option [value]="item.id">{{ item.text}}</mat-option>
+                }
             </mat-select>
-            <mat-error *ngIf="personDataFormGroup.get('civilStatusId')?.hasError('required')">
-                Seleccina un estado civil
-            </mat-error>
+            @if(personDataFormGroup.get('civilStatusId')?.hasError('required')){
+            <mat-error>Seleccina un estado civil</mat-error>
+            }
         </mat-form-field>
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Sexo</mat-label>
             <mat-select formControlName="genderId" placeholder="-- Seleccionar --">
-                <mat-option *ngFor="let item of genders" [value]="item.id">{{ item.text
-                    }}</mat-option>
+                @for(item of genders(); track item){
+                <mat-option [value]="item.id">{{ item.text}}</mat-option>
+                }
             </mat-select>
-            <mat-error *ngIf="personDataFormGroup.get('genderId')?.hasError('required')">
-                Seleccina un género
-            </mat-error>
+            @if(personDataFormGroup.get('genderId')?.hasError('required')){
+            <mat-error>Seleccina un género</mat-error>
+            }
         </mat-form-field>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-2">
@@ -72,12 +75,12 @@
             <mat-label>Teléfono Celular</mat-label>
             <input type="text" [maxLength]="80" [maxLength]="9" [minlength]="9" onlyNumbers pattern="9.*" matInput
                 formControlName="phoneNumber" />
-            <mat-error *ngIf="personDataFormGroup.get('phoneNumber')?.hasError('required')">
-                Ingresa tu número de celular
-            </mat-error>
-            <mat-error *ngIf="personDataFormGroup.get('phoneNumber')?.hasError('pattern')">
-                El número de celular debe comenzar con 9
-            </mat-error>
+            @if(personDataFormGroup.get('phoneNumber')?.hasError('required')){
+            <mat-error>Ingresa tu número de celular</mat-error>
+            }
+            @if(personDataFormGroup.get('phoneNumber')?.hasError('pattern')){
+            <mat-error>El número de celular debe comenzar con 9</mat-error>
+            }
         </mat-form-field>
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Brevete</mat-label>
@@ -86,26 +89,28 @@
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Categoría de Brevete</mat-label>
             <mat-select formControlName="licenceTypeId" placeholder="-- Seleccionar --">
-                <mat-option *ngFor="let item of licenseDrives" [value]="item.id">{{
-                    item.text }}</mat-option>
+                @for(item of licenseDrives(); track item){
+                <mat-option [value]="item.id">{{item.text}}</mat-option>
+                }
             </mat-select>
-            <mat-error *ngIf="personDataFormGroup.get('genderId')?.hasError('required')">
-                Seleccina un tipo de licencia
-            </mat-error>
+            @if(personDataFormGroup.get('licenceTypeId')?.hasError('required')){
+            <mat-error>Seleccina una categoría de brevete</mat-error>
+            }
         </mat-form-field>
     </div>
     <div class="grid grid-cols-1 gap-4 mt-2">
         <mat-form-field appearance="outline" floatLabel="always">
             <mat-label>Correo Electrónico</mat-label>
             <input matInput type="text" formControlName="email" [maxLength]="80">
-            <mat-error *ngIf="personDataFormGroup.get('email')?.hasError('required')">Requerido</mat-error>
-            <mat-error *ngIf="personDataFormGroup.get('email')?.hasError('pattern')">Correo electrónico no
-                válido</mat-error>
+            @if(personDataFormGroup.get('email')?.hasError('required')){
+            <mat-error>Ingresa tu correo electrónico</mat-error>
+            }
+            @if(personDataFormGroup.get('email')?.hasError('pattern')){
+            <mat-error>Correo electrónico no válido</mat-error>
+            }
         </mat-form-field>
     </div>
-    <div class="minsur-color">
-        <button mat-raised-button class="btn-principal w-full lg:w-2/12" (click)="updateInfoPersona()">
-            <mat-icon>save</mat-icon> Grabar
-        </button>
-    </div>
+    <button mat-raised-button class="btn-principal w-full lg:w-2/12 mt-2" (click)="updateInfoPersona()">
+        <mat-icon>save</mat-icon> Grabar
+    </button>
 </form>

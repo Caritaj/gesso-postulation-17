@@ -1,5 +1,4 @@
 export interface CboModel {
-
     shorttext: string;
     active: boolean; 
     id: number; 
