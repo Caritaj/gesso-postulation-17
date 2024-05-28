@@ -3,7 +3,7 @@ import { HTTP_STATUS_MESSAGE } from '../../http/http-status-message';
 import { environment } from '../../../../environments/environment';
 import { AlertDialogService } from '../confirmation/alert.service';
 
-// Tipos de mensajes
+// Message Types
 export type MessageType = 'info' | 'success' | 'warning' | 'error';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class NotificationService {
     noConnectionErrorMessage = 'No se pudo establecer conexión con el servidor';
     unknownErrorMessage = 'Ocurrió un error desconocido.';
     private xhrErrorMessageTitle = '¡Ocurrió un error!';
-    private xhrErrorMessaTpl = `
+    private xhrErrorMessageTpl = `
     <div>{message}</div>
     <div class="error-code">
         <span>ERROR {status}</span>
@@ -37,7 +37,7 @@ export class NotificationService {
             return;
         }
         // Authentication Required: 401
-        if (status === 401 && cmp && cmp.__forceClose) {
+        if (status === 401 && cmp?.__forceClose) {
             cmp.__forceClose();
             return;
         }
@@ -99,7 +99,7 @@ export class NotificationService {
     }
 
     private buildXhrErrorMessage(status: number, message: string): string {
-        return this.xhrErrorMessaTpl
+        return this.xhrErrorMessageTpl
             .replace('{message}', message)
             .replace('{status}', status.toString());
     }
