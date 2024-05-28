@@ -8,8 +8,8 @@
             actualizados a la fecha de postulación. De no ser el caso,
             podrá editar la información a fin de realizar las modificaciones que correspondan.
         </p>
-        <div class="p-4">
-            <table mat-table [dataSource]="data" class="mat-table--lite">
+        <div class="p-4 overflow-x-auto">
+            <table mat-table [dataSource]="data" class="mat-table--lite min-w-full">
 
                 <!-- Columna Puesto -->
                 <ng-container matColumnDef="puesto">
@@ -60,10 +60,10 @@
                     <td class="mat-cell">Sin datos que mostrar</td>
                 </tr>
             </table>
-
-            <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
-            </mat-paginator>
-
+            <div class="mt-10 md:mt-2">
+                <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+                </mat-paginator>
+            </div>
         </div>
     </div>
 </div>

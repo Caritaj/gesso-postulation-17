@@ -1,82 +1,84 @@
-<table mat-table [dataSource]="data" class="mat-table--lite mt-3">
+<div class="overflow-x-auto">
+    <table mat-table [dataSource]="data" class="mat-table--lite mt-3 min-w-full">
 
-    <!-- Columna Contratista -->
-    <ng-container matColumnDef="contratista">
-        <th mat-header-cell *matHeaderCellDef>
-            <div [ngStyle]="{'width.px': 180}">Empresa Contratista</div>
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
-    </ng-container>
+        <!-- Columna Contratista -->
+        <ng-container matColumnDef="contratista">
+            <th mat-header-cell *matHeaderCellDef>
+                <div [ngStyle]="{'width.px': 180}">Empresa Contratista</div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+        </ng-container>
 
-    <!-- Columna Area -->
-    <ng-container matColumnDef="area">
-        <th mat-header-cell *matHeaderCellDef>
-            <div [ngStyle]="{'width.px': 180}">Area/Unidad/Dpto</div>
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.areaName}} </td>
-    </ng-container>
+        <!-- Columna Area -->
+        <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef>
+                <div [ngStyle]="{'width.px': 180}">Area/Unidad/Dpto</div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.areaName}} </td>
+        </ng-container>
 
-    <!-- Columna Puesto -->
-    <ng-container matColumnDef="puesto">
-        <th mat-header-cell *matHeaderCellDef>
-            <div [ngStyle]="{'width.px': 180}">Puesto Trabajo</div>
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.positionName }} </td>
-    </ng-container>
+        <!-- Columna Puesto -->
+        <ng-container matColumnDef="puesto">
+            <th mat-header-cell *matHeaderCellDef>
+                <div [ngStyle]="{'width.px': 180}">Puesto Trabajo</div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.positionName }} </td>
+        </ng-container>
 
-    <!-- Columna Fecha de Inicio -->
-    <ng-container matColumnDef="fechaInicio">
-        <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
-        <td mat-cell *matCellDef="let element"> {{element.start_date | date: 'dd/MM/yyyy' }}
-        </td>
-    </ng-container>
+        <!-- Columna Fecha de Inicio -->
+        <ng-container matColumnDef="fechaInicio">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
+            <td mat-cell *matCellDef="let element"> {{element.start_date | date: 'dd/MM/yyyy' }}
+            </td>
+        </ng-container>
 
-    <!-- Columna Fecha de Fin -->
-    <ng-container matColumnDef="fechaFin">
-        <th mat-header-cell *matHeaderCellDef> Fecha de Fin </th>
-        <td mat-cell *matCellDef="let element"> {{element.end_date | date: 'dd/MM/yyyy' }}
-        </td>
-    </ng-container>
+        <!-- Columna Fecha de Fin -->
+        <ng-container matColumnDef="fechaFin">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Fin </th>
+            <td mat-cell *matCellDef="let element"> {{element.end_date | date: 'dd/MM/yyyy' }}
+            </td>
+        </ng-container>
 
-    <!-- Columna Empleo Actual -->
-    <ng-container matColumnDef="empleoActual">
-        <th mat-header-cell *matHeaderCellDef> Empleo Actual? </th>
-        <td mat-cell *matCellDef="let element">
-            {{ element.current === true ? 'Sí' : (element.current === false ? 'No' : '-') }}
-        </td>
-    </ng-container>
+        <!-- Columna Empleo Actual -->
+        <ng-container matColumnDef="empleoActual">
+            <th mat-header-cell *matHeaderCellDef> Empleo Actual? </th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.current === true ? 'Sí' : (element.current === false ? 'No' : '-') }}
+            </td>
+        </ng-container>
 
-    <!-- Columna Editar -->
-    <ng-container matColumnDef="editar">
-        <th class="text-center" mat-header-cell *matHeaderCellDef>
-            <div [ngStyle]="{'width.px': 50}">Editar</div>
-        </th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-            <button class="btn-icon" (click)="editWorkExperience(element)">
-                <mat-icon>edit</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+        <!-- Columna Editar -->
+        <ng-container matColumnDef="editar">
+            <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <div [ngStyle]="{'width.px': 50}">Editar</div>
+            </th>
+            <td class="text-center" mat-cell *matCellDef="let element">
+                <button class="btn-icon" (click)="editWorkExperience(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
 
-    <!-- Columna Eliminar -->
-    <ng-container matColumnDef="eliminar">
-        <th class="text-center" mat-header-cell *matHeaderCellDef>
-            <div [ngStyle]="{'width.px': 50}">Eliminar</div>
-        </th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-            <button class="btn-icon" (click)="deleteWorkExperience(element.id)">
-                <mat-icon color="warn">delete</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+        <!-- Columna Eliminar -->
+        <ng-container matColumnDef="eliminar">
+            <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <div [ngStyle]="{'width.px': 50}">Eliminar</div>
+            </th>
+            <td class="text-center" mat-cell *matCellDef="let element">
+                <button class="btn-icon" (click)="deleteWorkExperience(element.id)">
+                    <mat-icon color="warn">delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
-</mat-paginator>
-
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<div class="mt-10 md:mt-2">
+    <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+</div>
 <div>
     <button mat-raised-button class="btn-principal w-full lg:w-2/12" (click)="openWorkExperience()">
         <mat-icon>add</mat-icon> Agregar

@@ -5,7 +5,6 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { CurrentAnnouncementComponent } from './current-announcement/current-announcement.component';
 import { HistoryAnnouncementComponent } from './history-announcement/history-announcement.component';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,6 @@ import { RouterModule } from '@angular/router';
     CurrentAnnouncementComponent,
     HistoryAnnouncementComponent,
     MatTabsModule,
-    RouterModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

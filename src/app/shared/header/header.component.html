@@ -25,10 +25,11 @@
 <div class="pr-7" *ngIf="existSession">
     <div class="float-right relative bg-principal w-30 h-20 rounded flex items-center justify-center">
         <button class="relative mt-2" mat-button [matMenuTriggerFor]="menu">
-            <img class="rounded-full w-10 h-10 object-cover" src="./../../../../../assets/images/user_icon.png"
-                alt="Logo user" />
+            <img class="rounded-full w-10 h-10 object-cover hidden md:block"
+                src="./../../../../../assets/images/user_icon.png" alt="Logo user" />
             <mat-icon class="absolute bottom-0 right-0 text-white bg-black rounded-full p-1">expand_more</mat-icon>
         </button>
+
         <mat-menu #menu="matMenu">
             <button (click)="closeSession()" mat-menu-item>
                 <mat-icon>close</mat-icon>Cerrar sesión
