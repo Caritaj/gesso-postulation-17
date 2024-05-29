@@ -1,14 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PostulationService } from '../../core/services/postulation.service';
-import { CommonService } from '../../core/services/common.service';
-import { NotificationService } from '../../core/services/notification/notification.service';
-import { Paginated } from '../../core/models/paginated';
-import { AlertDialogService } from '../../core/services/confirmation/alert.service';
+import { PostulationService } from '@services/postulation.service';
+import { CommonService } from '@services/common.service';
+import { NotificationService } from '@services/notification/notification.service';
+import { Paginated } from '@models/paginated';
+import { AlertDialogService } from '@services/confirmation/alert.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { DialogFormatModule } from '../../shared/dialog-format.module';
+import { DialogFormatModule } from '@shared/dialog-format.module';
 
 @Component({
   selector: 'app-view-requirements',
@@ -30,11 +30,12 @@ export class ViewRequirementsComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ViewRequirementsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private service: PostulationService,
-    private commonService: CommonService,
-    private notificationService: NotificationService,
-    private alertDialogService: AlertDialogService,
   ) { }
+
+  service = inject(PostulationService);
+  private commonService = inject(CommonService);
+  private notificationService = inject(NotificationService);
+  private alertDialogService = inject(AlertDialogService);
 
   ngOnInit(): void {
     this.viewPostulate = this.data.postulate;

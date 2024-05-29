@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FiltersContainerComponent } from '../../../../shared/filters-container.component';
-import { Filter } from '../../../../core/types/filter';
+import { FiltersContainerComponent } from '@shared/filters-container.component';
 import { MatIconModule } from '@angular/material/icon';
-import { SearchBoxComponent } from '../../../../shared/search-box/search-box.component';
+import { SearchBoxComponent } from '@shared/search-box/search-box.component';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { Filter } from '@typeModel/filter';
 
 @Component({
   selector: 'app-postulation-filters',

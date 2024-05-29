@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { DialogFormatModule } from '../../../../shared/dialog-format.module';
+import { DialogFormatModule } from '@shared/dialog-format.module';
 
 @Component({
   selector: 'app-view-document',

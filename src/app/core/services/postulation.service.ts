@@ -71,7 +71,7 @@ export class PostulationService {
         return this.http.put<any>(url, body, { headers: headers, params: params });
     }
 
-    public getListparameters() {
+    public getLisParameters() {
         const url = `${this.baseAdminUrl}/load/json/list`;
         const headers = this.getHeaders();
         const params = this.getParams(new Date());

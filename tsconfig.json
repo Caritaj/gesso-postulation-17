@@ -1,6 +1,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["src/app/shared/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@models/*": ["src/app/core/models/*"],
+      "@admin/*": ["src/app/admin/postulation/*"],
+      "@typeModel/*": ["src/app/core/types/*"],
+      "@requirements/*": ["src/app/admin/view-requirements/*"],
+      "@directives/*": ["src/app/core/directives/*"]
+
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

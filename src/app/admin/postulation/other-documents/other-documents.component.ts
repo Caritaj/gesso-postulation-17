@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, input } from '@angular/core';
 import FileSaver from 'file-saver';
-import { FilesUpload } from '../../../core/models/files-upload';
-import { Person } from '../../../core/models/persona';
-import { DialogService } from '../../../core/services/dialog/dialog.service';
-import { NotificationService } from '../../../core/services/notification/notification.service';
-import { PostulationService } from '../../../core/services/postulation.service';
+import { FilesUpload } from '@models/files-upload';
+import { Person } from '@models/persona';
+import { DialogService } from '@services/dialog/dialog.service';
+import { NotificationService } from '@services/notification/notification.service';
+import { PostulationService } from '@services/postulation.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ViewDocumentComponent } from './view-document/view-document.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { AlertDialogService } from '../../../core/services/confirmation/alert.service';
+import { AlertDialogService } from '@services/confirmation/alert.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -27,20 +27,19 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './other-documents.component.html',
 })
 export class OtherDocumentsComponent {
-  @Input() person!: Person;
+
+  person = input<Person>();
+  filesUploaded = input<FilesUpload[]>();
   documentUpload: any;
   documentName: string = "";
-  @Input() filesUploaded: FilesUpload[] = [];
   urlViewer: any;
   @Output() documentsUpdated = new EventEmitter<void>();
 
-  constructor(
-    private service: PostulationService,
-    private notificationService: NotificationService,
-    private dialogService: DialogService,
-    private toastr: ToastrService,
-    private alertDialogService: AlertDialogService,
-  ) { }
+  service = inject(PostulationService);
+  notificationService = inject(NotificationService);
+  dialogService = inject(DialogService);
+  toastr = inject(ToastrService);
+  alertDialogService = inject(AlertDialogService);
 
   uploadDocumentEvent(event: any) {
     this.documentUpload = event.target.files[0];
@@ -75,10 +74,10 @@ export class OtherDocumentsComponent {
   handleUploadConfirmation(): void {
     const formData = new FormData();
     formData.append("file", this.documentUpload);
-    formData.append("objectId", this.person.uuid);
-    formData.append("objectKey", JSON.stringify(this.person.id));
+    formData.append("objectId", this.person()!.uuid);
+    formData.append("objectKey", JSON.stringify(this.person()!.id));
     formData.append("objectType", "COMMON_DOCUMENT");
-    formData.append("className:", this.person.className);
+    formData.append("className:", this.person()!.className);
     formData.append("type:", "COMMON_DOCUMENT");
     this.service.uploadDocument(formData)
       .subscribe({

@@ -5,7 +5,7 @@
     <div class="p-4">
         <div>
             <mat-label class="inline-block max-w-full mb-1 font-bold">
-                {{person != null && person.hasCV ? 'Reemplazar' : 'Adjuntar'}} Documento:
+                {{person != null && person()!.hasCV ? 'Reemplazar' : 'Adjuntar'}} Documento:
             </mat-label>
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="w-full md:w-1/2 relative">
@@ -35,9 +35,9 @@
             </div>
 
         </div>
-        <div class="mt-8" *ngIf="person != null && person.hasCV">
+        <div class="mt-8" *ngIf="person != null && person()!.hasCV">
             <mat-label class="inline-block max-w-full mb-1 font-bold">Curriculum Vitae:</mat-label>
-            {{person.cvUrlViewer}}
+            {{person()!.cvUrlViewer}}
             <div class="flex mt-2">
                 <button mat-raised-button class="btn-download mr-2" (click)="downloadFile()">
                     <mat-icon>download</mat-icon>Descargar

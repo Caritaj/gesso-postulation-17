@@ -11,23 +11,25 @@
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Tipo de Documento</mat-label>
                 <mat-select formControlName="docTypeId" placeholder="-- Seleccionar --">
-                    <mat-option *ngFor="let item of dataSourceDocumentType" [value]="item.id">
-                        {{item.text}}
-                    </mat-option>
+                    @for(item of dataSourceDocumentType; track item){
+                    <mat-option [value]="item.id">{{item.text}}</mat-option>}
                 </mat-select>
-                <mat-error *ngIf="hasError('docTypeId','required')">Requerido</mat-error>
+                @if (formGroup.get('docTypeId')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
             </mat-form-field>
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Número de Documento</mat-label>
                 <input matInput type="text" formControlName="numdoc" onlyNumbers [maxLength]="20">
-                <mat-error *ngIf="hasError('numdoc','required')">Requerido</mat-error>
+                @if(formGroup.get('numdoc')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
             </mat-form-field>
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Primer Nombre</mat-label>
                 <input matInput type="text" formControlName="firstName">
-                <mat-error *ngIf="hasError('firstName','required')">Requerido</mat-error>
-                <mat-error
-                    *ngIf="hasError('firstName','maxlength')">{{getMaxLengthErrorMessage('firstName')}}</mat-error>
+                @if(formGroup.get('firstName')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
+                @if(formGroup.get('firstName')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('firstName')}}</mat-error>}
             </mat-form-field>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
@@ -38,67 +40,76 @@
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Apellido Paterno</mat-label>
                 <input matInput type="text" formControlName="lastPatName">
-                <mat-error *ngIf="hasError('lastPatName','required')">Requerido</mat-error>
-                <mat-error
-                    *ngIf="hasError('lastPatName','maxlength')">{{getMaxLengthErrorMessage('lastPatName')}}</mat-error>
+                @if(formGroup.get('lastPatName')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
+                @if(formGroup.get('lastPatName')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('lastPatName')}}</mat-error>}
             </mat-form-field>
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Apellido Materno</mat-label>
                 <input matInput type="text" formControlName="lastMatName">
-                <mat-error *ngIf="hasError('lastMatName','required')">Requerido</mat-error>
-                <mat-error
-                    *ngIf="hasError('lastMatName','maxlength')">{{getMaxLengthErrorMessage('lastMatName')}}</mat-error>
+                @if(formGroup.get('lastMatName')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
+                @if(formGroup.get('lastMatName')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('lastMatName')}}</mat-error>}
             </mat-form-field>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Género</mat-label>
                 <mat-select formControlName="genderId" placeholder="-- Seleccionar --">
-                    <mat-option *ngFor="let item of dataSourceGender" [value]="item.id">
-                        {{item.text}}
-                    </mat-option>
+                    @for(item of dataSourceGender; track item){
+                    <mat-option [value]="item.id">{{item.text}}</mat-option>}
                 </mat-select>
-                <mat-error *ngIf="hasError('genderId','required')">Requerido</mat-error>
+                @if(formGroup.get('genderId')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
             </mat-form-field>
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Fecha de Nacimiento</mat-label>
                 <input placeholder="DD/MM/YYYY" appInputMask matInput [matDatepicker]="picker"
                     formControlName="birthDate">
-                <mat-error *ngIf="hasError('birthDate','required')">Requerido</mat-error>
+                @if(formGroup.get('birthDate')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Correo Electrónico</mat-label>
                 <input matInput type="text" formControlName="email">
-                <mat-error *ngIf="hasError('email','required')">Requerido</mat-error>
-                <mat-error *ngIf="hasError('email','pattern')">Correo electrónico no válido</mat-error>
-                <mat-error *ngIf="hasError('email','maxlength')">{{getMaxLengthErrorMessage('email')}}</mat-error>
+                @if (formGroup.get('email')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
+                @if (formGroup.get('email')?.hasError('pattern')) {
+                <mat-error>Correo electrónico no válido</mat-error>}
+                @if (formGroup.get('email')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('email')}}</mat-error>}
             </mat-form-field>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Distrito/Comunidad</mat-label>
                 <input matInput type="text" formControlName="level4Name">
-                <mat-error *ngIf="hasError('level4Name','required')">Requerido</mat-error>
-                <mat-error
-                    *ngIf="hasError('level4Name','maxlength')">{{getMaxLengthErrorMessage('level4Name')}}</mat-error>
+                @if(formGroup.get('level4Name')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
+                @if(formGroup.get('level4Name')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('level4Name')}}</mat-error>}
             </mat-form-field>
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Nro de celular</mat-label>
                 <input matInput type="text" formControlName="phoneNumber" onlyNumbers>
-                <mat-error *ngIf="hasError('phoneNumber','required')">Requerido</mat-error>
-                <mat-error
-                    *ngIf="hasError('phoneNumber','minlength')">{{getMinLengthErrorMessage('phoneNumber')}}</mat-error>
-                <mat-error
-                    *ngIf="hasError('phoneNumber','maxlength')">{{getMaxLengthErrorMessage('phoneNumber')}}</mat-error>
+                @if(formGroup.get('phoneNumber')?.hasError('required')) {
+                <mat-error>Requerido</mat-error>}
+                @if(formGroup.get('phoneNumber')?.hasError('minlength')) {
+                <mat-error>{{getMinLengthErrorMessage('phoneNumber')}}</mat-error>}
+                @if(formGroup.get('phoneNumber')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('phoneNumber')}}</mat-error>}
             </mat-form-field>
         </div>
         <div class="grid grid-cols-1 gap-4 mt-2">
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Comentarios</mat-label>
                 <textarea matInput rows="5" formControlName="comment"></textarea>
-                <mat-error *ngIf="hasError('comment','maxlength')">{{getMaxLengthErrorMessage('comment')}}</mat-error>
+                @if (formGroup.get('comment')?.hasError('maxlength')) {
+                <mat-error>{{getMaxLengthErrorMessage('comment')}}</mat-error>}
             </mat-form-field>
         </div>
         <button type="submit" #submitButton hidden></button>

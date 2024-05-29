@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DialogFormatModule } from '../../shared/dialog-format.module';
+import { DialogFormatModule } from '@shared/dialog-format.module';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({

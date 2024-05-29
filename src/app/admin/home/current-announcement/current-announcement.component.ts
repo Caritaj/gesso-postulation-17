@@ -1,17 +1,17 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { Announcement } from '../../../core/models/announcement';
-import { TableViewComponent } from '../../../shared/table-view.component';
+import { Announcement } from '@models/announcement';
+import { TableViewComponent } from '@shared/table-view.component';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { PostulationService } from '../../../core/services/postulation.service';
+import { PostulationService } from '@services/postulation.service';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { NotificationService } from '../../../core/services/notification/notification.service';
-import { DialogService } from '../../../core/services/dialog/dialog.service';
+import { NotificationService } from '@services/notification/notification.service';
+import { DialogService } from '@services/dialog/dialog.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PostulationFiltersComponent } from './postulation-filters/postulation-filters.component';
 import { MatTableModule } from '@angular/material/table';
-import { ViewRequirementsComponent } from '../../view-requirements/view-requirements.component';
+import { ViewRequirementsComponent } from '@requirements/view-requirements.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

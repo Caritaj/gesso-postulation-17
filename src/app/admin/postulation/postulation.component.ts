@@ -1,38 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Paginated } from '../../core/models/paginated';
-import { PostulationService } from '../../core/services/postulation.service';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Paginated } from '@models/paginated';
+import { PostulationService } from '@services/postulation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { forkJoin } from 'rxjs';
-import { CboModel } from '../../core/models/cbo-model';
-import { FilesUpload } from '../../core/models/files-upload';
-import { Person } from '../../core/models/persona';
-import { CommonService } from '../../core/services/common.service';
-import { NotificationService } from '../../core/services/notification/notification.service';
-import { AlertDialogService } from '../../core/services/confirmation/alert.service';
-import { HeaderComponent } from '../../shared/header/header.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
+import { CboModel } from '@models/cbo-model';
+import { FilesUpload } from '@models/files-upload';
+import { Person } from '@models/persona';
+import { CommonService } from '@services/common.service';
+import { NotificationService } from '@services/notification/notification.service';
+import { AlertDialogService } from '@services/confirmation/alert.service';
+import { HeaderComponent } from '@shared/header/header.component';
+import { FooterComponent } from '@shared/footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { CurrentCallsComponent } from './current-calls/current-calls.component';
-import { MyPostulationsComponent } from './my-postulations/my-postulations.component';
-import { PersonalInformationComponent } from './register-data/personal-information/personal-information.component';
-import { PersonalInformationDataBirthComponent } from './register-data/personal-information/personal-information-data-birth/personal-information-data-birth.component';
-import { PersonalInformationDataUbigeoComponent } from './register-data/personal-information/personal-information-data-ubigeo/personal-information-data-ubigeo.component';
-import { AcademicTrainingComponent } from './register-data/academic-training/academic-training.component';
-import { TrainingComponent } from './register-data/training/training.component';
-import { WorkExperienceComponent } from './register-data/work-experience/work-experience.component';
-import { UploadCvComponent } from './upload-cv/upload-cv.component';
-import { OtherDocumentsComponent } from './other-documents/other-documents.component';
-import { CommonModule } from '@angular/common';
+import { CurrentCallsComponent } from '@admin/current-calls/current-calls.component';
+import { MyPostulationsComponent } from '@admin/my-postulations/my-postulations.component';
+import { PersonalInformationComponent } from '@admin/register-data/personal-information/personal-information.component';
+import { PersonalInformationDataBirthComponent } from '@admin/register-data/personal-information/personal-information-data-birth/personal-information-data-birth.component';
+import { PersonalInformationDataUbigeoComponent } from '@admin/register-data/personal-information/personal-information-data-ubigeo/personal-information-data-ubigeo.component';
+import { AcademicTrainingComponent } from '@admin/register-data/academic-training/academic-training.component';
+import { TrainingComponent } from '@admin/register-data/training/training.component';
+import { WorkExperienceComponent } from '@admin/register-data/work-experience/work-experience.component';
+import { UploadCvComponent } from '@admin/upload-cv/upload-cv.component';
+import { OtherDocumentsComponent } from '@admin/other-documents/other-documents.component';
 
 @Component({
   selector: 'app-postulation',
   standalone: true,
   imports: [
-    CommonModule,
     HeaderComponent,
     FooterComponent,
     MatButtonModule,
@@ -77,14 +75,12 @@ export class PostulationComponent implements OnInit {
   isCvUploadActive = false;
   isOtherDocumentsActive = false;
 
-  constructor(
-    public dialog: MatDialog,
-    private service: PostulationService,
-    public matPaginatorIntl: MatPaginatorIntl,
-    private notificationService: NotificationService,
-    private commonService: CommonService,
-    private alertDialogService: AlertDialogService,
-  ) { }
+  public dialog = inject(MatDialog);
+  private service = inject(PostulationService);
+  public matPaginatorIntl = inject(MatPaginatorIntl);
+  private notificationService = inject(NotificationService);
+  private commonService = inject(CommonService);
+  private alertDialogService = inject(AlertDialogService);
 
   ngOnInit(): void {
     this._loadData();
@@ -95,38 +91,43 @@ export class PostulationComponent implements OnInit {
     }
   }
 
-  _loadData() {
+  _loadData(): void {
     const personId = this.commonService.getPersonId();
-    forkJoin([
-      this.service.getInfoPersona(personId),
-    ]).subscribe(
-      ([person]) => {
+    forkJoin({
+      person: this.service.getInfoPersona(personId),
+    }).subscribe({
+      next: ({ person }) => {
         this.person = person.data;
         this._loadDocuments(this.person.uuid);
       },
-      (xhr: any) => {
+      error: (xhr: any) => {
         this.notificationService.handleXhrError(xhr);
       }
-    );
+    });
   }
 
   _loadListParameters() {
-    this.service.getListparameters().subscribe((res: any) => {
-      this.loadListsData(res);
-    }, (xhr: any) => {
-      this.notificationService.handleXhrError(xhr);
+    this.service.getLisParameters().subscribe({
+      next:
+        (res: any) => {
+          this.loadListsData(res);
+        },
+      error: (xhr: any) => {
+        this.notificationService.handleXhrError(xhr);
+      }
     });
   }
 
   _loadDocuments(uuid: string): void {
-    this.service.getDocuments(uuid).subscribe(
-      (files: Paginated) => {
-        this.filesUploaded = files.data;
-      },
-      (xhr: any) => {
-        this.notificationService.handleXhrError(xhr);
-      }
-    );
+    this.service.getDocuments(uuid)
+      .subscribe({
+        next: (files: Paginated) => {
+          this.filesUploaded = files.data;
+        },
+        error: (xhr: any) => {
+          this.notificationService.handleXhrError(xhr);
+        }
+      });
   }
 
   loadListsData(data: any) {
@@ -145,12 +146,12 @@ export class PostulationComponent implements OnInit {
 
   setupTimer(): void {
     this.inactiveTime = 0;
-    window.onmousemove = (): void => {
+    window.addEventListener('mousemove', () => {
       this.inactiveTime = 0;
-    };
-    window.onkeypress = (): void => {
+    });
+    window.addEventListener('keypress', () => {
       this.inactiveTime = 0;
-    };
+    });
     const timer = setInterval(() => {
       this.inactiveTime += 1000;
       if (this.inactiveTime >= this.sessionTimeout) {

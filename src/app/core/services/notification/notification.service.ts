@@ -22,7 +22,7 @@ export class NotificationService {
 
     constructor(private alertDialogService: AlertDialogService) { }
 
-    handleXhrError(xhr: XMLHttpRequest | any, cmp?: any): void {
+    handleXhrError(xhr: XMLHttpRequest | any): void {
         const me = this;
         const status = xhr.status;
         me.logXhr(xhr);
@@ -37,8 +37,8 @@ export class NotificationService {
             return;
         }
         // Authentication Required: 401
-        if (status === 401 && cmp?.__forceClose) {
-            cmp.__forceClose();
+        if (status === 401) {
+            this.showBadRequestNotification(xhr);
             return;
         }
         // Not Found: 404
@@ -109,5 +109,4 @@ export class NotificationService {
             console.error(xhr);
         }
     }
-
 }

@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Person } from '../../../core/models/persona';
-import { NotificationService } from '../../../core/services/notification/notification.service';
-import { PostulationService } from '../../../core/services/postulation.service';
+import { Person } from '@models/persona';
+import { NotificationService } from '@services/notification/notification.service';
+import { PostulationService } from '@services/postulation.service';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import * as FileSaver from 'file-saver';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrService } from 'ngx-toastr';
-import { AlertDialogService } from '../../../core/services/confirmation/alert.service';
+import { AlertDialogService } from '@services/confirmation/alert.service';
 
 @Component({
   selector: 'app-upload-cv',
@@ -23,19 +23,17 @@ import { AlertDialogService } from '../../../core/services/confirmation/alert.se
   templateUrl: './upload-cv.component.html',
 })
 export class UploadCvComponent {
-  @Input() person!: Person;
+  person = input<Person>();
   fileBlob: any;
   fileUpload: any;
   fileName: string = "";
   @Output() documentsUpdated = new EventEmitter<void>();
 
-  constructor(
-    private service: PostulationService,
-    private notificationService: NotificationService,
-    private sanitizer: DomSanitizer,
-    private toastr: ToastrService,
-    private alertDialogService: AlertDialogService,
-  ) { }
+  private service = inject(PostulationService);
+  private sanitizer = inject(DomSanitizer);
+  private toastr = inject(ToastrService);
+  private alertDialogService = inject(AlertDialogService);
+  private notificationService = inject(NotificationService);
 
   uploadFileEvent(event: any) {
     this.fileUpload = event.target.files[0];
@@ -70,10 +68,10 @@ export class UploadCvComponent {
   handleUploadConfirmation(): void {
     const formData = new FormData();
     formData.append("file", this.fileUpload);
-    formData.append("objectId", this.person.uuid);
-    formData.append("objectKey", JSON.stringify(this.person.id));
+    formData.append("objectId", this.person()!.uuid);
+    formData.append("objectKey", JSON.stringify(this.person()!.id));
     formData.append("objectType", "PERSON");
-    formData.append("className:", this.person.className);
+    formData.append("className:", this.person()!.className);
     formData.append("type:", "COMMON_DOCUMENT");
     this.service.uploadCV(formData)
       .subscribe({
@@ -89,11 +87,11 @@ export class UploadCvComponent {
   }
 
   downloadFile() {
-    this.service.downloadCV(this.person.cvId)
+    this.service.downloadCV(this.person()!.cvId)
       .subscribe({
         next: (response: any) => {
           const blob = new Blob([response], { type: 'application/pdf' });
-          FileSaver.saveAs(blob, this.person.numdoc + "_CV.pdf");
+          FileSaver.saveAs(blob, this.person()!.numdoc + "_CV.pdf");
         },
         error: (xhr: any) => {
           this.notificationService.handleXhrError(xhr);
@@ -102,7 +100,7 @@ export class UploadCvComponent {
   }
 
   viewFile() {
-    this.service.downloadCV(this.person.cvId)
+    this.service.downloadCV(this.person()!.cvId)
       .subscribe({
         next: (response: any) => {
           const blob = new Blob([response], { type: 'application/pdf' });

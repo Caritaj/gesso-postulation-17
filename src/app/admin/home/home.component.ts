@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../shared/header/header.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
+import { HeaderComponent } from '@shared/header/header.component';
+import { FooterComponent } from '@shared/footer/footer.component';
 import { CurrentAnnouncementComponent } from './current-announcement/current-announcement.component';
 import { HistoryAnnouncementComponent } from './history-announcement/history-announcement.component';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
@@ -10,7 +9,6 @@ import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule,
     HeaderComponent,
     FooterComponent,
     CurrentAnnouncementComponent,
@@ -21,11 +19,11 @@ import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  isHistoryAnnouncementActive = false;
+  activeTab = false
 
   onTabChange(event: MatTabChangeEvent) {
     if (event.index === 1) {
-      this.isHistoryAnnouncementActive = true;
+      this.activeTab = true;
     }
   }
 }

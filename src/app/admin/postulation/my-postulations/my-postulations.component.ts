@@ -1,14 +1,14 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { TableViewComponent } from '../../../shared/table-view.component';
+import { TableViewComponent } from '@shared/table-view.component';
 import { Observable } from 'rxjs';
-import { CommonService } from '../../../core/services/common.service';
-import { NotificationService } from '../../../core/services/notification/notification.service';
-import { PostulationService } from '../../../core/services/postulation.service';
+import { CommonService } from '@services/common.service';
+import { NotificationService } from '@services/notification/notification.service';
+import { PostulationService } from '@services/postulation.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { AlertDialogService } from '../../../core/services/confirmation/alert.service';
+import { AlertDialogService } from '@services/confirmation/alert.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

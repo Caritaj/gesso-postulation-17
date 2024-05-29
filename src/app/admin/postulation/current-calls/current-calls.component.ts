@@ -1,18 +1,15 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommonService } from '../../../core/services/common.service';
-import { DialogService } from '../../../core/services/dialog/dialog.service';
-import { NotificationService } from '../../../core/services/notification/notification.service';
-import { PostulationService } from '../../../core/services/postulation.service';
-import { TableViewComponent } from '../../../shared/table-view.component';
+import { CommonService } from '@services/common.service';
+import { DialogService } from '@services/dialog/dialog.service';
+import { NotificationService } from '@services/notification/notification.service';
+import { PostulationService } from '@services/postulation.service';
+import { TableViewComponent } from '@shared/table-view.component';
 import { ViewRequirementsComponent } from '../../view-requirements/view-requirements.component';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { AlertDialogService } from '../../../core/services/confirmation/alert.service';
-import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-current-calls',
   standalone: true,
@@ -39,8 +36,6 @@ export class CurrentCallsComponent extends TableViewComponent<any> implements On
     private service: PostulationService,
     private commonService: CommonService,
     override notificationService: NotificationService,
-    private alertDialogService: AlertDialogService,
-    private toastr: ToastrService,
     private dialogService: DialogService,
   ) {
     super(injector);
