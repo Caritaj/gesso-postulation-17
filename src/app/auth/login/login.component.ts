@@ -95,7 +95,7 @@ export class LoginComponent {
     this.service.authentication(credentials).subscribe({
       next: (data: any) => {
         this.userInfo = data.data;
-        localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+        sessionStorage.setItem("userInfo", JSON.stringify(this.userInfo));
         this.redirectToRegister();
       },
       error: (xhr: any) => {

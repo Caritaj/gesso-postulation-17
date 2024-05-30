@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
     providedIn: 'root'
 })
-export class CommonService { 
+export class CommonService {
 
     getUserInfoSession() {
-        let userInfoStorage = localStorage.getItem("userInfo");
+        let userInfoStorage = sessionStorage.getItem("userInfo");
         let userInfo = userInfoStorage != null ? JSON.parse(userInfoStorage) : null;
         return userInfo;
     }
@@ -23,6 +22,6 @@ export class CommonService {
     }
 
     removeSession() {
-        localStorage.removeItem("userInfo");
+        sessionStorage.removeItem("userInfo");
     }
 }
