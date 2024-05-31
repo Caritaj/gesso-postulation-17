@@ -1,5 +1,8 @@
 <app-dialog-header (closeClick)="close()">
-    {{isCreationMode()?'AGREGAR':'EDITAR'}} Formación Académica
+    <span class="flex items-center gap-1">
+        <mat-icon>{{ isCreationMode() ? 'add' : 'edit' }}</mat-icon>
+        {{ isCreationMode() ? 'AGREGAR' : 'EDITAR' }} Formación Academica
+    </span>
 </app-dialog-header>
 <app-dialog-content>
     <form [formGroup]="formGroup" class="p-4" (ngSubmit)="onSubmit()">
